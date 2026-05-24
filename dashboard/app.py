@@ -12,7 +12,7 @@ import plotly.graph_objects as go
 from dotenv import load_dotenv
 load_dotenv(Path(__file__).parent.parent / ".env")
 
-from core.simulation import run_simulation_stream
+from core.simulation import run_simulation_stream, BATTERY_CAPACITY_KWH
 from data.weather import CITIES
 
 # ── Page config ──────────────────────────────────────────────────────────────
@@ -75,7 +75,7 @@ PEAK_RISK_BADGE = {
                'border-radius:12px;font-size:0.8rem;font-weight:700;">HIGH</span>'),
 }
 
-BATTERY_CAPACITY_KWH = 200.0
+# Imported from core.simulation — do not redefine here
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -317,14 +317,14 @@ with chart_col:
             name="Battery", mode="lines+markers",
             line=dict(color="#4682B4", width=2), marker=dict(size=5),
         ))
-    fig_battery.add_hline(y=20, line_dash="dash", line_color="red",
+    fig_battery.add_hline(y=BATTERY_CAPACITY_KWH * 0.10, line_dash="dash", line_color="red",
                            annotation_text="10% min", annotation_position="right")
-    fig_battery.add_hline(y=190, line_dash="dash", line_color="orange",
+    fig_battery.add_hline(y=BATTERY_CAPACITY_KWH * 0.95, line_dash="dash", line_color="orange",
                            annotation_text="95% max", annotation_position="right")
     fig_battery.update_layout(
         title="Battery State of Charge",
         xaxis_title="Hour of Day", yaxis_title="Battery (kWh)",
-        yaxis=dict(range=[0, 210]),
+        yaxis=dict(range=[0, BATTERY_CAPACITY_KWH * 1.05]),
         height=280, margin=dict(l=40, r=60, t=40, b=30),
         plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)",
     )
