@@ -30,6 +30,8 @@ The agents negotiate each hour: during a sunny midday, the Broker may sell surpl
 
 ## Dashboard
 
+![Microgrid AI Dashboard](assets/dashboard.png)
+
 **Features:**
 - **Live agent chat feed** — colored chat bubbles show each agent's reasoning as the simulation runs
 - **Real-time charts** — energy balance, battery state of charge, cumulative net profit, grid price curve
